@@ -11,7 +11,7 @@ namespace QuizApp.Forms
     {
         private DataGridView gridTests;
         private Button btnCreate;
-        private Button btnEdit; // <--- НОВА КНОПКА
+        private Button btnEdit;
         private Button btnViewResults;
         private Button btnResetStats;
         private Button btnDeleteTest;
@@ -26,7 +26,7 @@ namespace QuizApp.Forms
         private void SetupUI()
         {
             this.Text = "Адмін-панель: Керування тестами";
-            this.Size = new Size(900, 650); // Трохи збільшив висоту
+            this.Size = new Size(900, 650);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.WhiteSmoke;
 
@@ -59,7 +59,7 @@ namespace QuizApp.Forms
 
             this.Controls.Add(gridTests);
 
-            // --- ПРАВА ПАНЕЛЬ ---
+            // ПРАВА ПАНЕЛЬ
             int btnX = 640;
             int btnW = 220;
             int btnH = 50;
@@ -71,7 +71,7 @@ namespace QuizApp.Forms
             btnCreate.Click += BtnCreate_Click;
             this.Controls.Add(btnCreate);
 
-            // 2. Редагувати (НОВЕ)
+            // 2. Редагувати
             btnEdit = CreateButton("✏️ Редагувати тест", Color.DarkGoldenrod, btnX, startY + btnH + gap);
             btnEdit.Click += BtnEdit_Click;
             this.Controls.Add(btnEdit);
@@ -131,11 +131,10 @@ namespace QuizApp.Forms
             }
         }
 
-        // --- ЛОГІКА ---
+        // ЛОГІКА 
 
         private void BtnCreate_Click(object sender, EventArgs e)
         {
-            // Відкриваємо форму без параметрів (створення)
             AdminForm createForm = new AdminForm(null);
             this.Hide();
             createForm.ShowDialog();
@@ -143,7 +142,7 @@ namespace QuizApp.Forms
             LoadTests();
         }
 
-        // НОВА ФУНКЦІЯ: РЕДАГУВАННЯ
+        // РЕДАГУВАННЯ
         private void BtnEdit_Click(object sender, EventArgs e)
         {
             if (gridTests.SelectedRows.Count == 0)
@@ -157,12 +156,11 @@ namespace QuizApp.Forms
 
             if (quizToEdit != null)
             {
-                // Відкриваємо ту саму форму, АЛЕ передаємо туди наш тест
                 AdminForm editForm = new AdminForm(quizToEdit);
                 this.Hide();
                 editForm.ShowDialog();
                 this.Show();
-                LoadTests(); // Оновлюємо таблицю (раптом назву змінили)
+                LoadTests();
             }
         }
 

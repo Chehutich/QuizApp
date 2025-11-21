@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using QuizApp.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json; 
-using QuizApp.Models;
+using System.Xml;
 
 
 namespace QuizApp.Services
@@ -21,7 +22,7 @@ namespace QuizApp.Services
         // Поточний користувач
         public static User CurrentUser { get; set; }
 
-        //  Завантаження даних 
+        // Завантаження даних 
         public static void LoadData()
         {
             if (File.Exists(usersFile))
@@ -37,11 +38,12 @@ namespace QuizApp.Services
             }
             else
             {
+                
                 CreateDemoData();
             }
         }
 
-        // Збереження даних 
+        //  Збереження даних 
         public static void SaveUsers()
         {
             string json = JsonConvert.SerializeObject(Users, Newtonsoft.Json.Formatting.Indented);
@@ -54,9 +56,10 @@ namespace QuizApp.Services
             File.WriteAllText(quizzesFile, json);
         }
 
+       
         private static void CreateDemoData()
         {
-            // ТЕСТ 1: ГЕОГРАФІЯ 
+            //  ТЕСТ 1: ГЕОГРАФІЯ 
             Quiz geo = new Quiz
             {
                 Title = "Географія світу",
