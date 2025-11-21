@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Linq; // Для пошуку
+using System.Linq; 
 using QuizApp.Models;
 using QuizApp.Services;
 
@@ -10,7 +10,6 @@ namespace QuizApp.Forms
 {
     public partial class AdminForm : Form
     {
-        // Якщо цей об'єкт не null, значить ми редагуємо старий тест
         private Quiz quizToEdit = null;
 
         private List<Question> tempQuestions = new List<Question>();
@@ -30,34 +29,32 @@ namespace QuizApp.Forms
         private Button btnAddQuestion;
         private Button btnSaveQuiz;
 
-        // ОНОВЛЕНИЙ КОНСТРУКТОР: приймає тест або null
+        // КОНСТРУКТОР
         public AdminForm(Quiz editQuiz = null)
         {
             this.quizToEdit = editQuiz;
             SetupUI();
 
-            // Якщо ми редагуємо - завантажуємо дані
+
             if (quizToEdit != null)
             {
                 LoadDataForEdit();
             }
         }
 
-        // Порожній конструктор для дизайнера (щоб не сварився)
+        // Порожній конструктор для дизайнера 
         public AdminForm() : this(null) { }
 
         private void LoadDataForEdit()
         {
-            // Заповнюємо шапку
             txtQuizTitle.Text = quizToEdit.Title;
             txtQuizCategory.Text = quizToEdit.Category;
             this.Text = $"Редагування тесту: {quizToEdit.Title}";
 
-            // Копіюємо питання (ВАЖЛИВО: створюємо новий список, щоб не псувати оригінал до збереження)
             tempQuestions = new List<Question>(quizToEdit.Questions);
 
             lblCount.Text = $"Питань у тесті: {tempQuestions.Count}";
-            btnSaveQuiz.Text = "ЗБЕРЕГТИ ЗМІНИ"; // Змінюємо текст кнопки
+            btnSaveQuiz.Text = "ЗБЕРЕГТИ ЗМІНИ"; 
         }
 
         private void SetupUI()
@@ -151,7 +148,7 @@ namespace QuizApp.Forms
             this.Controls.Add(btnSaveQuiz);
 
             Button btnCancel = new Button { Text = "Скасувати", Location = new Point(x, 650), Size = new Size(520, 30), FlatStyle = FlatStyle.Flat, ForeColor = Color.IndianRed };
-            btnCancel.Click += (s, e) => { this.Close(); }; // Просто закриваємо вікно
+            btnCancel.Click += (s, e) => { this.Close(); }; 
             this.Controls.Add(btnCancel);
         }
 
@@ -179,7 +176,7 @@ namespace QuizApp.Forms
             List<string> options = new List<string> { txtOption1.Text, txtOption2.Text, txtOption3.Text, txtOption4.Text };
             Question newQ = new Question(txtQuestionText.Text, options, correctIndex);
 
-            tempQuestions.Add(newQ); // Додаємо в список
+            tempQuestions.Add(newQ); 
 
             lblCount.Text = $"Питань у тесті: {tempQuestions.Count}";
 
@@ -190,7 +187,7 @@ namespace QuizApp.Forms
             txtQuestionText.Focus();
         }
 
-        // --- ЛОГІКА ЗБЕРЕЖЕННЯ (Оновлена) ---
+        // ЛОГІКА ЗБЕРЕЖЕННЯ 
         private void BtnSaveQuiz_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtQuizTitle.Text) || string.IsNullOrWhiteSpace(txtQuizCategory.Text))
@@ -214,7 +211,7 @@ namespace QuizApp.Forms
                 {
                     original.Title = txtQuizTitle.Text;
                     original.Category = txtQuizCategory.Text;
-                    original.Questions = tempQuestions; // Оновлюємо список питань
+                    original.Questions = tempQuestions; 
                     original.Description = $"Оновлено викладачем. Питань: {tempQuestions.Count}";
 
                     MessageBox.Show("Зміни успішно збережено!", "Редагування");
@@ -234,7 +231,6 @@ namespace QuizApp.Forms
                 MessageBox.Show("Тест успішно створено!", "Створення");
             }
 
-            // Спільна дія: Зберегти файл і закрити вікно
             DataManager.SaveQuizzes();
             this.Close();
         }
