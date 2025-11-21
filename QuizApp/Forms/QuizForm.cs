@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq; // Потрібно для копіювання списків
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuizApp.Models;
@@ -11,39 +11,36 @@ namespace QuizApp.Forms
 {
     public partial class QuizForm : Form
     {
-        // --- Змінні стану ---
+        //Змінні стану
         private Quiz currentQuiz;
-        private List<Question> shuffledQuestions; // Список перемішаних питань
+        private List<Question> shuffledQuestions;
         private int currentQuestionIndex = 0;
         private int currentScore = 0;
 
-        // --- Змінні для Таймера ---
+        //Змінні для Таймера
         private Timer questionTimer;
-        // -----------------------------------------------------
-        // ТУТ ЗМІНИЛИ ЧАС:
-        private int timePerQuestion = 30; // Секунд на питання
-        // -----------------------------------------------------
+        private int timePerQuestion = 30;
         private int timeLeft;
 
-        // --- Елементи інтерфейсу ---
+        //Елементи інтерфейсу
         private Label lblProgress;
         private Label lblQuestionText;
         private Button[] optionButtons;
-        private ProgressBar timeProgressBar; // Смужка часу
+        private ProgressBar timeProgressBar; 
 
         public QuizForm(Quiz quiz)
         {
             // 1. Зберігаємо тест
             this.currentQuiz = quiz;
 
-            // 2. Перемішуємо питання (створюємо випадковий список)
+            // 2. Перемішуємо питання
             this.shuffledQuestions = ShuffleList(quiz.Questions);
 
             SetupUI();
 
             // 3. Налаштовуємо таймер
             questionTimer = new Timer();
-            questionTimer.Interval = 1000; // Тікає кожну 1 секунду
+            questionTimer.Interval = 1000;
             questionTimer.Tick += QuestionTimer_Tick;
 
             ShowQuestion();
@@ -62,15 +59,15 @@ namespace QuizApp.Forms
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
-            // 1. Прогрес бар (Таймер) - ЗВЕРХУ
+            // 1. Прогрес бар
             timeProgressBar = new ProgressBar();
             timeProgressBar.Location = new Point(0, 0);
-            timeProgressBar.Size = new Size(800, 10); // Тонка смужка на всю ширину
+            timeProgressBar.Size = new Size(800, 10);
             timeProgressBar.Style = ProgressBarStyle.Continuous;
             timeProgressBar.ForeColor = Color.Orange;
             this.Controls.Add(timeProgressBar);
 
-            // 2. Текстовий прогрес "Питання 1/5"
+            // 2. Текстовий прогрес
             lblProgress = new Label();
             lblProgress.Text = "Питання 1 / 5";
             lblProgress.Font = new Font("Segoe UI", 10, FontStyle.Bold);
@@ -90,7 +87,7 @@ namespace QuizApp.Forms
             lblQuestionText.Location = new Point(20, 60);
             this.Controls.Add(lblQuestionText);
 
-            // 4. Кнопки (2x2)
+            // 4. Кнопки
             optionButtons = new Button[4];
             int startY = 260;
             int btnWidth = 360;
@@ -142,7 +139,7 @@ namespace QuizApp.Forms
             questionTimer.Start();
         }
 
-        // Логіка таймера: що відбувається кожну секунду
+        // Логіка таймера
         private async void QuestionTimer_Tick(object sender, EventArgs e)
         {
             timeLeft--;
@@ -153,7 +150,7 @@ namespace QuizApp.Forms
                 // ЧАС ВИЙШОВ!
                 questionTimer.Stop();
 
-                // Показуємо правильну відповідь, але бали не даємо
+                // Показуємо правильну відповідь
                 var question = shuffledQuestions[currentQuestionIndex];
 
                 // Блокуємо кнопки
@@ -172,7 +169,7 @@ namespace QuizApp.Forms
 
         private async void OptionButton_Click(object sender, EventArgs e)
         {
-            // 1. ОДРАЗУ ЗУПИНЯЄМО ТАЙМЕР
+            // 1. Зупиняемо таймер
             questionTimer.Stop();
 
             Button clickedButton = (Button)sender;
@@ -215,7 +212,7 @@ namespace QuizApp.Forms
 
         private void FinishQuiz()
         {
-            questionTimer.Stop(); // На всяк випадок
+            questionTimer.Stop(); 
 
             QuizResult result = new QuizResult
             {
@@ -237,10 +234,10 @@ namespace QuizApp.Forms
             this.Close();
         }
 
-        // --- МЕТОД ДЛЯ ПЕРЕМІШУВАННЯ СПИСКУ (Fisher-Yates Shuffle) ---
+        // МЕТОД ДЛЯ ПЕРЕМІШУВАННЯ СПИСКУ
         private List<T> ShuffleList<T>(List<T> inputList)
         {
-            // Створюємо копію списку, щоб не псувати оригінал
+            // Створюємо копію списку
             List<T> randomList = new List<T>(inputList);
 
             Random r = new Random();
