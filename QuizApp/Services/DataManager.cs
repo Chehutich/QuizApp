@@ -59,7 +59,7 @@ namespace QuizApp.Services
        
         private static void CreateDemoData()
         {
-            //  ТЕСТ 1: ГЕОГРАФІЯ 
+            //  Тест 1: Географія
             Quiz geo = new Quiz
             {
                 Title = "Географія світу",
@@ -78,7 +78,7 @@ namespace QuizApp.Services
             geo.Questions.Add(new Question("Столиця Великої Британії?", new List<string> { "Лондон", "Дублін", "Единбург", "Манчестер" }, 0));
             geo.Questions.Add(new Question("Де знаходяться піраміди?", new List<string> { "Мексика", "Індія", "Єгипет", "Китай" }, 2));
 
-            // ТЕСТ 2: ІСТОРІЯ УКРАЇНИ 
+            // Тест 2: Історія України
             Quiz hist = new Quiz
             {
                 Title = "Історія України",
