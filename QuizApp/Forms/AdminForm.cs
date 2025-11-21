@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Linq; // Для пошуку
+using System.Linq;
 using QuizApp.Models;
 using QuizApp.Services;
 
@@ -30,13 +30,12 @@ namespace QuizApp.Forms
         private Button btnAddQuestion;
         private Button btnSaveQuiz;
 
-        // ОНОВЛЕНИЙ КОНСТРУКТОР: приймає тест або null
+        // Приймає тест або null
         public AdminForm(Quiz editQuiz = null)
         {
             this.quizToEdit = editQuiz;
             SetupUI();
 
-            // Якщо ми редагуємо - завантажуємо дані
             if (quizToEdit != null)
             {
                 LoadDataForEdit();
@@ -48,16 +47,14 @@ namespace QuizApp.Forms
 
         private void LoadDataForEdit()
         {
-            // Заповнюємо шапку
             txtQuizTitle.Text = quizToEdit.Title;
             txtQuizCategory.Text = quizToEdit.Category;
             this.Text = $"Редагування тесту: {quizToEdit.Title}";
 
-            // Копіюємо питання (ВАЖЛИВО: створюємо новий список, щоб не псувати оригінал до збереження)
             tempQuestions = new List<Question>(quizToEdit.Questions);
 
             lblCount.Text = $"Питань у тесті: {tempQuestions.Count}";
-            btnSaveQuiz.Text = "ЗБЕРЕГТИ ЗМІНИ"; // Змінюємо текст кнопки
+            btnSaveQuiz.Text = "ЗБЕРЕГТИ ЗМІНИ";
         }
 
         private void SetupUI()
@@ -71,7 +68,7 @@ namespace QuizApp.Forms
 
             int x = 30;
 
-            // --- БЛОК 1 ---
+            // БЛОК 1
             Label lblHeader1 = new Label { Text = "1. Інформація про Тест", Font = new Font("Segoe UI", 12, FontStyle.Bold), ForeColor = Color.DarkSlateBlue, Location = new Point(x, 20), AutoSize = true };
             this.Controls.Add(lblHeader1);
 
@@ -86,7 +83,7 @@ namespace QuizApp.Forms
             Label divider = new Label { BorderStyle = BorderStyle.Fixed3D, Location = new Point(x, 160), Size = new Size(520, 2) };
             this.Controls.Add(divider);
 
-            // --- БЛОК 2 ---
+            // БЛОК 2
             Label lblHeader2 = new Label { Text = "2. Додавання нових питань", Font = new Font("Segoe UI", 12, FontStyle.Bold), ForeColor = Color.DarkSlateBlue, Location = new Point(x, 170), AutoSize = true };
             this.Controls.Add(lblHeader2);
 
@@ -130,7 +127,7 @@ namespace QuizApp.Forms
             btnAddQuestion.Click += BtnAddQuestion_Click;
             this.Controls.Add(btnAddQuestion);
 
-            // --- БЛОК 3 ---
+            // БЛОК 3
             lblCount = new Label();
             lblCount.Text = "Питань у тесті: 0";
             lblCount.Font = new Font("Segoe UI", 10, FontStyle.Bold);
@@ -151,7 +148,7 @@ namespace QuizApp.Forms
             this.Controls.Add(btnSaveQuiz);
 
             Button btnCancel = new Button { Text = "Скасувати", Location = new Point(x, 650), Size = new Size(520, 30), FlatStyle = FlatStyle.Flat, ForeColor = Color.IndianRed };
-            btnCancel.Click += (s, e) => { this.Close(); }; // Просто закриваємо вікно
+            btnCancel.Click += (s, e) => { this.Close(); };
             this.Controls.Add(btnCancel);
         }
 
@@ -179,18 +176,17 @@ namespace QuizApp.Forms
             List<string> options = new List<string> { txtOption1.Text, txtOption2.Text, txtOption3.Text, txtOption4.Text };
             Question newQ = new Question(txtQuestionText.Text, options, correctIndex);
 
-            tempQuestions.Add(newQ); // Додаємо в список
+            tempQuestions.Add(newQ);
 
             lblCount.Text = $"Питань у тесті: {tempQuestions.Count}";
 
-            // Очищення
             txtQuestionText.Clear();
             txtOption1.Clear(); txtOption2.Clear(); txtOption3.Clear(); txtOption4.Clear();
             rb1.Checked = false; rb2.Checked = false; rb3.Checked = false; rb4.Checked = false;
             txtQuestionText.Focus();
         }
 
-        // --- ЛОГІКА ЗБЕРЕЖЕННЯ (Оновлена) ---
+        // ЛОГІКА ЗБЕРЕЖЕННЯ (Оновлена)
         private void BtnSaveQuiz_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtQuizTitle.Text) || string.IsNullOrWhiteSpace(txtQuizCategory.Text))
@@ -208,13 +204,12 @@ namespace QuizApp.Forms
             // ВАРІАНТ А: РЕДАГУВАННЯ
             if (quizToEdit != null)
             {
-                // Знаходимо оригінал в базі
                 var original = DataManager.Quizzes.FirstOrDefault(q => q == quizToEdit);
                 if (original != null)
                 {
                     original.Title = txtQuizTitle.Text;
                     original.Category = txtQuizCategory.Text;
-                    original.Questions = tempQuestions; // Оновлюємо список питань
+                    original.Questions = tempQuestions;
                     original.Description = $"Оновлено викладачем. Питань: {tempQuestions.Count}";
 
                     MessageBox.Show("Зміни успішно збережено!", "Редагування");
@@ -234,7 +229,6 @@ namespace QuizApp.Forms
                 MessageBox.Show("Тест успішно створено!", "Створення");
             }
 
-            // Спільна дія: Зберегти файл і закрити вікно
             DataManager.SaveQuizzes();
             this.Close();
         }

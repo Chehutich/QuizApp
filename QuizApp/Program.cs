@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using QuizApp.Services; // Щоб бачити DataManager
-using QuizApp.Forms;    // Щоб бачити LoginForm (бо ми її перенесли в папку Forms)
+using QuizApp.Services;
+using QuizApp.Forms;
 
 namespace QuizApp
 {
@@ -13,7 +13,7 @@ namespace QuizApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            DataManager.LoadData(); // Завантажуємо базу
+            DataManager.LoadData();
 
             Application.Run(new LoginForm());
         }
