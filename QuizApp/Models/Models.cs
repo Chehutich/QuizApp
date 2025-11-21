@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace QuizApp.Models
 {
-    // --- Клас Користувача (Студента) ---
+    // Клас Користувача
     public class User
     {
-        public string FirstName { get; set; } // Ім'я
-        public string LastName { get; set; }  // Прізвище
-        // Повне ім'я для зручності (щоб показувати в таблицях)
+        public string FirstName { get; set; } 
+        public string LastName { get; set; }  
+   
         public string FullName => $"{LastName} {FirstName}";
 
-        // Історія проходження тестів цим студентом
+ 
         public List<QuizResult> History { get; set; } = new List<QuizResult>();
 
         public User() { }
@@ -23,7 +23,7 @@ namespace QuizApp.Models
         }
     }
 
-    // --- Клас Результату ---
+    // Клас Результату 
     public class QuizResult
     {
         public string QuizTitle { get; set; }
@@ -31,7 +31,7 @@ namespace QuizApp.Models
         public DateTime DateTaken { get; set; }
     }
 
-    // --- Клас Тесту ---
+    //  Клас Тесту 
     public class Quiz
     {
         public string Title { get; set; }
@@ -40,7 +40,7 @@ namespace QuizApp.Models
         public List<Question> Questions { get; set; } = new List<Question>();
     }
 
-    // --- Клас Питання ---
+    //  Клас Питання 
     public class Question
     {
         public string Text { get; set; }
