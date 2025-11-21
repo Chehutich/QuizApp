@@ -29,7 +29,7 @@ namespace QuizApp.Forms
 
         private void SetupUI()
         {
-            // 1. Налаштування вікна (Збільшив висоту до 750)
+            // 1. Налаштування вікна 
             this.Text = "Результати тестування";
             this.Size = new Size(800, 750);
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -57,14 +57,13 @@ namespace QuizApp.Forms
             lblMyResult.Location = new Point(0, 60);
             this.Controls.Add(lblMyResult);
 
-            // 4. Панель Подіуму (Збільшив висоту до 240, щоб влізли опущені місця)
+            // 4. Панель Подіуму 
             podiumPanel = new Panel();
             podiumPanel.Location = new Point(20, 100);
             podiumPanel.Size = new Size(740, 240);
-            // podiumPanel.BorderStyle = BorderStyle.FixedSingle; // Розкоментуй, щоб бачити межі панелі
             this.Controls.Add(podiumPanel);
 
-            // 5. Таблиця (Опустив нижче на Y=360)
+            // 5. Таблиця 
             gridOthers = new DataGridView();
             gridOthers.Location = new Point(50, 360);
             gridOthers.Size = new Size(680, 250);
@@ -86,7 +85,7 @@ namespace QuizApp.Forms
 
             this.Controls.Add(gridOthers);
 
-            // 6. Кнопка "Додому" (Опустив нижче на Y=640)
+            // 6. Кнопка "Додому" 
             btnHome = new Button();
             btnHome.Text = "Повернутися в Меню";
             btnHome.Size = new Size(200, 45);
@@ -122,9 +121,7 @@ namespace QuizApp.Forms
 
             allResults = allResults.OrderByDescending(x => x.Score).ToList();
 
-            // Висота для 1-го місця
             int topRowY = 20;
-            // Висота для 2-го та 3-го місця (опущені)
             int lowerRowY = topRowY + 25;
 
             if (allResults.Count > 0) CreatePodiumBox(1, allResults[0], Color.Gold, 280, topRowY);
@@ -143,7 +140,6 @@ namespace QuizApp.Forms
             }
             else
             {
-                // Якщо мало учасників - ховаємо таблицю, щоб не було порожнього місця
                 gridOthers.Visible = false;
 
                 if (allResults.Count <= 3)
@@ -151,7 +147,7 @@ namespace QuizApp.Forms
                     Label lblEmpty = new Label();
                     lblEmpty.Text = "Інших учасників поки немає.";
                     lblEmpty.AutoSize = true;
-                    lblEmpty.Location = new Point(50, 380); // Теж опустили
+                    lblEmpty.Location = new Point(50, 380); 
                     lblEmpty.Font = new Font("Segoe UI", 10, FontStyle.Italic);
                     this.Controls.Add(lblEmpty);
                 }
