@@ -185,7 +185,7 @@ namespace QuizApp.Forms
             txtQuestionText.Focus();
         }
 
-        // ЛОГІКА ЗБЕРЕЖЕННЯ (Оновлена)
+        // ЛОГІКА ЗБЕРЕЖЕННЯ
         private void BtnSaveQuiz_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtQuizTitle.Text) || string.IsNullOrWhiteSpace(txtQuizCategory.Text))
