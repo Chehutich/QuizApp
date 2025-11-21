@@ -132,7 +132,7 @@ namespace QuizApp.Forms
                 optionButtons[i].ForeColor = Color.Black;
             }
 
-            // ЗАПУСК ТАЙМЕРА
+            // Запуск таймера
             timeLeft = timePerQuestion;
             timeProgressBar.Maximum = timePerQuestion;
             timeProgressBar.Value = timeLeft;
@@ -147,7 +147,7 @@ namespace QuizApp.Forms
 
             if (timeLeft <= 0)
             {
-                // ЧАС ВИЙШОВ!
+                // Час вийшов
                 questionTimer.Stop();
 
                 // Показуємо правильну відповідь
@@ -234,10 +234,10 @@ namespace QuizApp.Forms
             this.Close();
         }
 
-        // МЕТОД ДЛЯ ПЕРЕМІШУВАННЯ СПИСКУ
+        // Метод для перемішування списку
         private List<T> ShuffleList<T>(List<T> inputList)
         {
-            // Створюємо копію списку
+            // Копія списку
             List<T> randomList = new List<T>(inputList);
 
             Random r = new Random();
