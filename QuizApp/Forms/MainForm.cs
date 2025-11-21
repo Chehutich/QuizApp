@@ -63,7 +63,7 @@ namespace QuizApp.Forms
             };
             headerPanel.Controls.Add(btnLogout);
 
-            // 5. Контейнер для тестів (FlowLayoutPanel)
+            // 5. Контейнер для тестів 
             panelQuizzes = new FlowLayoutPanel();
             panelQuizzes.Dock = DockStyle.Fill; 
             panelQuizzes.AutoScroll = true; 
@@ -77,7 +77,6 @@ namespace QuizApp.Forms
         {
             panelQuizzes.Controls.Clear(); 
 
-            // Перевірка
             if (DataManager.Quizzes.Count == 0)
             {
                 Label lblEmpty = new Label();
