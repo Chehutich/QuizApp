@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json; // Переконайся, що пакет встановлено
+using Newtonsoft.Json; 
 using QuizApp.Models;
+
 
 namespace QuizApp.Services
 {
@@ -20,7 +21,7 @@ namespace QuizApp.Services
         // Поточний користувач
         public static User CurrentUser { get; set; }
 
-        // --- Завантаження даних ---
+        //  Завантаження даних 
         public static void LoadData()
         {
             if (File.Exists(usersFile))
@@ -36,28 +37,26 @@ namespace QuizApp.Services
             }
             else
             {
-                // Якщо файлу немає - створюємо великий демо-набір
                 CreateDemoData();
             }
         }
 
-        // --- Збереження даних ---
+        // Збереження даних 
         public static void SaveUsers()
         {
-            string json = JsonConvert.SerializeObject(Users, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(Users, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(usersFile, json);
         }
 
         public static void SaveQuizzes()
         {
-            string json = JsonConvert.SerializeObject(Quizzes, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(Quizzes, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(quizzesFile, json);
         }
 
-        // --- Створення 10 питань для тестів ---
         private static void CreateDemoData()
         {
-            // === ТЕСТ 1: ГЕОГРАФІЯ ===
+            // ТЕСТ 1: ГЕОГРАФІЯ 
             Quiz geo = new Quiz
             {
                 Title = "Географія світу",
@@ -76,7 +75,7 @@ namespace QuizApp.Services
             geo.Questions.Add(new Question("Столиця Великої Британії?", new List<string> { "Лондон", "Дублін", "Единбург", "Манчестер" }, 0));
             geo.Questions.Add(new Question("Де знаходяться піраміди?", new List<string> { "Мексика", "Індія", "Єгипет", "Китай" }, 2));
 
-            // === ТЕСТ 2: ІСТОРІЯ УКРАЇНИ ===
+            // ТЕСТ 2: ІСТОРІЯ УКРАЇНИ 
             Quiz hist = new Quiz
             {
                 Title = "Історія України",

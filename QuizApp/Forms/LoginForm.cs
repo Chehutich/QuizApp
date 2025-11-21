@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using QuizApp.Models;   // Щоб бачити User
-using QuizApp.Services; // Щоб бачити DataManager
+using QuizApp.Models;   
+using QuizApp.Services; 
 
-namespace QuizApp.Forms // Тепер ми в папці Forms
+namespace QuizApp.Forms 
 {
     public partial class LoginForm : Form
     {
-        // --- Оголошуємо елементи інтерфейсу ---
+        // елементи інтерфейсу 
         private Label lblTitle;
         private Label lblName;
         private TextBox txtFirstName;
@@ -30,20 +30,20 @@ namespace QuizApp.Forms // Тепер ми в папці Forms
         {
             // 1. Налаштування вікна
             this.Text = "Вхід у систему";
-            this.Size = new Size(400, 600); // Трохи збільшив висоту вікна (було 550), щоб все влізло
+            this.Size = new Size(400, 600); 
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.BackColor = Color.White;
 
-            // 2. Заголовок (ЗМІНЕНО)
+            // 2. Заголовок 
             lblTitle = new Label();
-            lblTitle.Text = "ТЕСТУВАННЯ"; // Нова назва
+            lblTitle.Text = "ТЕСТУВАННЯ"; 
             lblTitle.Font = new Font("Segoe UI", 20, FontStyle.Bold);
             lblTitle.ForeColor = Color.DarkSlateBlue;
-            lblTitle.AutoSize = false; // Вимикаємо авторозмір, щоб відцентрувати через TextAlign
-            lblTitle.Size = new Size(this.ClientSize.Width, 40); // На всю ширину форми
-            lblTitle.TextAlign = ContentAlignment.MiddleCenter; // Центруємо текст
+            lblTitle.AutoSize = false; 
+            lblTitle.Size = new Size(this.ClientSize.Width, 40); 
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter; 
             lblTitle.Location = new Point(0, 30);
             this.Controls.Add(lblTitle);
 
@@ -113,21 +113,21 @@ namespace QuizApp.Forms // Тепер ми в папці Forms
             lblAdminLink.Click += new EventHandler(LinkAdmin_Click);
             this.Controls.Add(lblAdminLink);
 
-            // Поле пароля (ЗБІЛЬШЕНО)
+            // Поле пароля 
             txtAdminPass = new TextBox();
             txtAdminPass.PasswordChar = '●';
             txtAdminPass.Location = new Point(50, 380);
-            txtAdminPass.Size = new Size(280, 35); // Висота 35 (було 25)
-            txtAdminPass.Font = new Font("Segoe UI", 12); // Шрифт більший (було дефолтний)
+            txtAdminPass.Size = new Size(280, 35); 
+            txtAdminPass.Font = new Font("Segoe UI", 12); 
             txtAdminPass.Visible = false;
             this.Controls.Add(txtAdminPass);
 
-            // Кнопка входу адміна (ЗБІЛЬШЕНО)
+            // Кнопка входу адміна 
             btnAdminEnter = new Button();
             btnAdminEnter.Text = "Увійти";
-            btnAdminEnter.Location = new Point(50, 430); // Опустили нижче (було 415)
-            btnAdminEnter.Size = new Size(280, 45); // Висота 45 (було 30)
-            btnAdminEnter.Font = new Font("Segoe UI", 11, FontStyle.Bold); // Жирний шрифт
+            btnAdminEnter.Location = new Point(50, 430); 
+            btnAdminEnter.Size = new Size(280, 45); 
+            btnAdminEnter.Font = new Font("Segoe UI", 11, FontStyle.Bold); 
             btnAdminEnter.BackColor = Color.Gray;
             btnAdminEnter.ForeColor = Color.White;
             btnAdminEnter.FlatStyle = FlatStyle.Flat;
@@ -136,7 +136,7 @@ namespace QuizApp.Forms // Тепер ми в папці Forms
             this.Controls.Add(btnAdminEnter);
         }
 
-        // --- ЛОГІКА ---
+        // ЛОГІКА 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             string name = txtFirstName.Text.Trim();
@@ -177,7 +177,6 @@ namespace QuizApp.Forms // Тепер ми в папці Forms
             txtAdminPass.Visible = isVisible;
             btnAdminEnter.Visible = isVisible;
 
-            // Якщо відкриваємо - ставимо фокус у поле пароля
             if (isVisible)
             {
                 txtAdminPass.Focus();
@@ -186,11 +185,8 @@ namespace QuizApp.Forms // Тепер ми в папці Forms
 
         private void BtnAdminEnter_Click(object sender, EventArgs e)
         {
-            if (txtAdminPass.Text == "admin123")
+            if (txtAdminPass.Text == "admin")
             {
-                // MessageBox.Show("Вітаємо, Викладач!"); // Можна прибрати, щоб швидше заходило
-
-                // ВІДКРИВАЄМО НОВУ ПАНЕЛЬ КЕРУВАННЯ
                 AdminDashboard dashboard = new AdminDashboard();
                 dashboard.Show();
 
