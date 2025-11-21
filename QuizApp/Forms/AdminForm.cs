@@ -10,7 +10,6 @@ namespace QuizApp.Forms
 {
     public partial class AdminForm : Form
     {
-        // Якщо цей об'єкт не null, значить ми редагуємо старий тест
         private Quiz quizToEdit = null;
 
         private List<Question> tempQuestions = new List<Question>();
@@ -42,7 +41,7 @@ namespace QuizApp.Forms
             }
         }
 
-        // Порожній конструктор для дизайнера (щоб не сварився)
+        // Порожній конструктор для дизайнера 
         public AdminForm() : this(null) { }
 
         private void LoadDataForEdit()

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
+
 namespace QuizApp.Services
 {
     public static class DataManager
@@ -45,13 +46,13 @@ namespace QuizApp.Services
         //  Збереження даних 
         public static void SaveUsers()
         {
-            string json = JsonConvert.SerializeObject(Users, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(Users, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(usersFile, json);
         }
 
         public static void SaveQuizzes()
         {
-            string json = JsonConvert.SerializeObject(Quizzes, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(Quizzes, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(quizzesFile, json);
         }
 
